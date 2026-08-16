@@ -27,9 +27,10 @@ Okay the idea in my head is getting too convoluted. Gonna spend some time resear
 - Lazygit
 - Lazydocker (to download)
 - Vim (replace with nvim)
+- Neovim (to configure)
 - Bash (needs a fancy make over. I want colored ls info)
 - yt-dlp
-- Bettercap (to download)
-- Obsidian (to download + import diaries)
+- Bettercap
+- Obsidian (import diaries)
 - Zen (to download)
 - ...
