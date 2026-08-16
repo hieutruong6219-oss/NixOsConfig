@@ -26,11 +26,18 @@ Okay the idea in my head is getting too convoluted. Gonna spend some time resear
 # Tools
 - Lazygit
 - Lazydocker (to download)
-- Vim (replace with nvim)
 - Neovim (to configure)
 - Bash (needs a fancy make over. I want colored ls info)
 - yt-dlp
 - Bettercap
-- Obsidian (import diaries)
+- Wireshark
+- Obsidian
 - Zen (to download)
+- ProtoVpn (to download)
+- Steam (to download)
 - ...
+
+- Custom switch script (no boiler plate. can prob translate over to home manager)
+
+Hyprland specific stuff
+- VPN indicator and swap script (prob just straight import the old one)

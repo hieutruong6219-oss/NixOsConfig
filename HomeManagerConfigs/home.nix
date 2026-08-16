@@ -2,6 +2,12 @@
 
 {
   nixpkgs.config.allowUnfree = true;
+
+  # Allow application launcher to find
+  xdg.enable = true;
+  xdg.mime.enable = true;
+
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nyx0";
