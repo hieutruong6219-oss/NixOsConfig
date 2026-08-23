@@ -23,6 +23,7 @@
     pkgs.proton-vpn-cli
     pkgs.qbittorrent
     pkgs.vlc
+    pkgs.tree
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
