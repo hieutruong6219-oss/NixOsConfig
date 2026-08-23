@@ -9,7 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Desktop environment stuff
-      ./SystemConfigs/plasma.nix
+      # ./SystemConfigs/plasma.nix
+      ./SystemConfigs/hyprland.nix
       # Systemd stuff
       ./SystemConfigs/systemd.nix
     ];
