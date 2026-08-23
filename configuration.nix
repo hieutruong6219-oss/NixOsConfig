@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
       # Desktop environment stuff
       ./SystemConfigs/plasma.nix
+      # Systemd stuff
+      ./SystemConfigs/systemd.nix
     ];
 
   # Bootloader.
