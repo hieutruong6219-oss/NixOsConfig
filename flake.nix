@@ -30,7 +30,7 @@
     homeConfigurations = {
       nyx0 = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./HomeManagerConfigs/home.nix ];
+        modules = [ ./home.nix ];
       };
     };
   };
