@@ -52,11 +52,12 @@
   programs.discord.enable = true;
 
   programs.bash = {
+  # programs.zsh = {
     enable = true;
     shellAliases = {
       ".." = "cd ..";
-      "ls" = "ls -l";
-      "lsa" = "ls -la"; 
+      "ls" = "ls -lh --color=auto --group-directories-first";
+      "lsa" = "ls -lha --color=auto --group-directories-first"; 
     };
   };
 
