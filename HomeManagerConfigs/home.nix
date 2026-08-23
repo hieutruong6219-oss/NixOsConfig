@@ -17,6 +17,12 @@
   # environment.
   home.packages = [
     pkgs.bettercap
+    pkgs.caligula
+    pkgs.unixtools.netstat
+    pkgs.nmap
+    pkgs.proton-vpn-cli
+    pkgs.qbittorrent
+    pkgs.vlc
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -38,6 +44,12 @@
     # EDITOR = "emacs";
     EDITOR = "vim";
   };
+
+  programs.keepassxc = {
+    enable = true;
+  };
+
+  programs.discord.enable = true;
 
   programs.bash = {
     enable = true;
