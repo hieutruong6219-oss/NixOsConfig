@@ -54,12 +54,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."nyx0" = {
     isNormalUser = true;
-    description = "a";
+    description = "Me Myself I";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
+    shell = pkgs.zsh;
   };
 
   # Install firefox.

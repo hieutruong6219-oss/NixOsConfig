@@ -7,11 +7,11 @@
   xdg.enable = true;
   xdg.mime.enable = true;
 
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nyx0";
   home.homeDirectory = "/home/nyx0";
+
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -42,7 +42,7 @@
 
   home.sessionVariables = {
     # EDITOR = "emacs";
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
 
   programs.keepassxc = {
@@ -51,8 +51,8 @@
 
   programs.discord.enable = true;
 
-  programs.bash = {
-  # programs.zsh = {
+  # programs.bash = {
+  programs.zsh = {
     enable = true;
     shellAliases = {
       ".." = "cd ..";
@@ -67,7 +67,17 @@
 
   programs.obsidian.enable = true;
   programs.yt-dlp.enable = true;
-  programs.neovim.enable = true;
+  programs.lazyvim = {
+    enable = true;
+
+    extras = {
+      lang.nix.enable = true;
+      lang.python = {
+        enable = true;
+        installRuntimeDependencies = true;
+      };
+    };
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
