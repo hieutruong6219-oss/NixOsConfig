@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    # Enable if configuration.nix uses hyprland.nix
+    ./HomeManagerConfigs/hyprland.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   # Allow application launcher to find
@@ -23,6 +28,7 @@
     pkgs.proton-vpn-cli
     pkgs.qbittorrent
     pkgs.vlc
+    pkgs.fzf
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -44,6 +50,8 @@
     # EDITOR = "emacs";
     EDITOR = "nvim";
   };
+
+  programs.firefox.enable = true;
 
   programs.keepassxc = {
     enable = true;
