@@ -1,16 +1,33 @@
+####################################################
+# Configs needed for hyprland with default settings
+####################################################
+
 { config, lib, pkgs, ... }:
 
 {
-  services.xserver.enable = true;
+  services.xserver.enable = true; # xserver management over in HomeManager/Hyprland/input.lua
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
     wayland.compositor = "kwin";
   };
 
+  # Needed to read battery
+  services.upower.enable = true;
+
+  # Audio
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
   environment.systemPackages = [
     # ... other packages
     pkgs.kitty # required for the default Hyprland config
+    pkgs.brightnessctl # needed for brightness control
   ];
 
   programs.hyprland = { 

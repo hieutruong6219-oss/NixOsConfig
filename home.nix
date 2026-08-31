@@ -22,6 +22,7 @@
   # environment.
   home.packages = [
     pkgs.bettercap
+    pkgs.wirelesstools
     pkgs.caligula
     pkgs.unixtools.netstat
     pkgs.nmap
@@ -29,6 +30,13 @@
     pkgs.qbittorrent
     pkgs.vlc
     pkgs.fzf
+    pkgs.gimp
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.googlesanscode
+    pkgs.clang
+    pkgs.cargo
+    pkgs.imagemagick
+    pkgs.bluetui
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -49,6 +57,10 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     EDITOR = "nvim";
+  };
+
+  programs.yazi = {
+    enable = true;
   };
 
   programs.firefox.enable = true;
@@ -75,17 +87,6 @@
 
   programs.obsidian.enable = true;
   programs.yt-dlp.enable = true;
-  programs.lazyvim = {
-    enable = true;
-
-    extras = {
-      lang.nix.enable = true;
-      lang.python = {
-        enable = true;
-        installRuntimeDependencies = true;
-      };
-    };
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
