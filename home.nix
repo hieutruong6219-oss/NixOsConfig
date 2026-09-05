@@ -4,6 +4,9 @@
   imports = [
     # Enable if configuration.nix uses hyprland.nix
     ./HomeManagerConfigs/hyprland.nix
+
+    # Applications that should carry over no matter the DE
+    ./HomeManagerConfigs/applications.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -17,27 +20,6 @@
   home.username = "nyx0";
   home.homeDirectory = "/home/nyx0";
 
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    pkgs.bettercap
-    pkgs.wirelesstools
-    pkgs.caligula
-    pkgs.unixtools.netstat
-    pkgs.nmap
-    pkgs.proton-vpn-cli
-    pkgs.qbittorrent
-    pkgs.vlc
-    pkgs.fzf
-    pkgs.gimp
-    pkgs.nerd-fonts.jetbrains-mono
-    pkgs.nerd-fonts.googlesanscode
-    pkgs.clang
-    pkgs.cargo
-    pkgs.imagemagick
-    pkgs.bluetui
-  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -58,35 +40,6 @@
     # EDITOR = "emacs";
     EDITOR = "nvim";
   };
-
-  programs.yazi = {
-    enable = true;
-  };
-
-  programs.firefox.enable = true;
-
-  programs.keepassxc = {
-    enable = true;
-  };
-
-  programs.discord.enable = true;
-
-  # programs.bash = {
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      ".." = "cd ..";
-      "ls" = "ls -lh --color=auto --group-directories-first";
-      "lsa" = "ls -lha --color=auto --group-directories-first"; 
-    };
-  };
-
-  programs.lazygit = {
-    enable = true;
-  };
-
-  programs.obsidian.enable = true;
-  programs.yt-dlp.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

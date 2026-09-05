@@ -14,10 +14,15 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + RETURN",       hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + B",    hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + SHIFT + F",    hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + CONTROL + B",  hl.dsp.exec_cmd("bluetui"))
+
+
+-- Quick Actions - Generally pulls up a panel to do stuff
+hl.bind(mainMod .. " + CONTROL + B",  hl.dsp.exec_cmd(terminal .. " -e bluetui"))
+hl.bind(mainMod .. " + CONTROL + N",  hl.dsp.exec_cmd(terminal .. " -e nvim ~/NixOsConfig"))
 
 
 -- Actions - Keybinds with no modifiers. They do stuff
+hl.bind(mainMod .. " + SPACE",        hl.dsp.exec_cmd("hyprlauncher"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill waybar || waybar"))
 

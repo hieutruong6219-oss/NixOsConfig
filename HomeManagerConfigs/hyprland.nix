@@ -58,6 +58,9 @@
     gtk.enable = true;
   };
 
+  # App launcher
+  services.hyprlauncher.enable = true;
+
   programs.lazyvim = {
     enable = true;
 
