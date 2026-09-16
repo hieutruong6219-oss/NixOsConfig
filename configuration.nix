@@ -15,7 +15,8 @@
 
       # Desktop environment
       # ./DesktopEnvironments/Plasma/System/plasma.nix
-      ./DesktopEnvironments/Hyprland/System/hyprland.nix # Remember to enable hyprland.nix in home.nix
+      # ./DesktopEnvironments/Hyprland/System/hyprland.nix # Remember to enable hyprland.nix in home.nix
+      ./DesktopEnvironments/Dwl/System/dwl.nix
 
       # Systemd stuff
       ./SystemConfigs/systemd.nix
