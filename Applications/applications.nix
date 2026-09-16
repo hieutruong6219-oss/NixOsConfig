@@ -9,7 +9,6 @@
     unixtools.arp
     nmap
     proton-vpn-cli
-    protonvpn-gui
     qbittorrent
     vlc
     fzf
@@ -63,7 +62,7 @@
       "ls" = "ls -lh --color=auto --group-directories-first";
       "lsa" = "ls -lha --color=auto --group-directories-first"; 
     };
-    initExtra = ''
+    initContent = ''
       # Bind Ctrl+R to incremental reverse history search
       bindkey "^R" history-incremental-search-backward
     '';

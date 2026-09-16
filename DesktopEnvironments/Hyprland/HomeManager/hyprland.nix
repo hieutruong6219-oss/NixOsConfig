@@ -48,6 +48,9 @@
     # Fonts
     nerd-fonts.jetbrains-mono
     nerd-fonts.googlesanscode
+
+    # Neovim linter
+    statix
   ];
 
   programs.kitty.enable = true;
