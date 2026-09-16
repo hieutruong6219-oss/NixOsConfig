@@ -2,11 +2,11 @@
 
 {
   imports = [
-    # Enable if configuration.nix uses hyprland.nix
-    ./HomeManagerConfigs/hyprland.nix
-
     # Applications that should carry over no matter the DE
-    ./HomeManagerConfigs/applications.nix
+    ./Applications/applications.nix
+
+    # DE specific home manager stuff
+    ./DesktopEnvironments/Hyprland/HomeManager/hyprland.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -6,6 +6,16 @@
 { config, lib, pkgs, ... }:
 
 {
+  wayland.windowManager.hyprland = {
+    enable = true;
+    
+    # Import all files in Hyprland directory
+    extraLuaFiles = builtins.listToAttrs (map 
+      (n: { name = n; value = ./Hyprland + "/${n}"; })
+      (builtins.attrNames (builtins.readDir ./Hyprland))
+    );
+  };
+
   imports = [
     # Topbar
     ./Topbar/Waybar/waybar.nix
@@ -101,15 +111,5 @@
 
   programs.zsh.sessionVariables = {
     GRIM_DEFAULT_DIR = "$HOME/Documents/Pictures/Screenshots/";
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    
-    # Import all files in Hyprland directory
-    extraLuaFiles = builtins.listToAttrs (map 
-      (n: { name = n; value = ./Hyprland + "/${n}"; })
-      (builtins.attrNames (builtins.readDir ./Hyprland))
-    );
   };
 }

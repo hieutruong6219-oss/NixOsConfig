@@ -6,17 +6,16 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-
       ./SystemConfigs/boot.nix
 
       # Networking stuff
       ./SystemConfigs/networking.nix
 
-      # Desktop environment stuff
-      # ./SystemConfigs/plasma.nix
-      ./SystemConfigs/hyprland.nix # Remember to enable hyprland.nix in home.nix
+      # Desktop environment
+      # ./DesktopEnvironments/Plasma/System/plasma.nix
+      ./DesktopEnvironments/Hyprland/System/hyprland.nix # Remember to enable hyprland.nix in home.nix
 
       # Systemd stuff
       ./SystemConfigs/systemd.nix
