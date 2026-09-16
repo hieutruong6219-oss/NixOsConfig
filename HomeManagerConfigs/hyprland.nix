@@ -12,11 +12,32 @@
     # ./Topbar/Ashell/ashell.nix
   ];
 
-  home.packages = [
-    pkgs.hyprpicker
-    pkgs.wl-clipboard
-    pkgs.phinger-cursors
-    pkgs.wev
+  home.packages = with pkgs; [
+    wofi
+
+    # Screenshots
+    grim
+    slurp
+    swappy
+
+    # Color picker
+    hyprpicker
+
+    # Audio
+    # hyprpwcenter
+    pavucontrol
+
+    wl-clipboard
+
+    # Cursor
+    phinger-cursors
+
+    # Debugger
+    wev
+
+    # Fonts
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.googlesanscode
   ];
 
   programs.kitty.enable = true;
@@ -78,9 +99,14 @@
     ];
   };
 
+  programs.zsh.sessionVariables = {
+    GRIM_DEFAULT_DIR = "$HOME/Documents/Pictures/Screenshots/";
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
-
+    
+    # Import all files in Hyprland directory
     extraLuaFiles = builtins.listToAttrs (map 
       (n: { name = n; value = ./Hyprland + "/${n}"; })
       (builtins.attrNames (builtins.readDir ./Hyprland))

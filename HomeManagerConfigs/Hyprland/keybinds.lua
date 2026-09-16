@@ -2,10 +2,19 @@
 ---- KEYBINDINGS ----
 ---------------------
 
-local terminal    = "kitty"
-local fileManager = terminal .. " -e yazi"
-local browser     = "firefox"
-local menu        = "hyprlauncher"
+local terminal        = "kitty"
+local browser         = "firefox"
+local fileManager     = terminal .. " -e yazi"
+local passwordManager = "keepassxc"
+
+local bluetooth       = terminal .. " -e bluetui"
+local nixosConfig     = terminal .. " -e nvim ~/NixOsConfig"
+local audio           = "pavucontrol"
+
+local menu            = "hyprlauncher"
+local toggleTopbar    = "pkill waybar || waybar"
+local colorPicker     = "pkill hyprpicker || hyprpicker -a"
+local screenshot      = "grim -g \"$(slurp)\" - | wl-copy"
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
@@ -14,21 +23,24 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + RETURN",       hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + B",    hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + SHIFT + F",    hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + SHIFT + SLASH",    hl.dsp.exec_cmd(passwordManager))
 
 
--- Quick Actions - Generally pulls up a panel to do stuff
-hl.bind(mainMod .. " + CONTROL + B",  hl.dsp.exec_cmd(terminal .. " -e bluetui"))
-hl.bind(mainMod .. " + CONTROL + N",  hl.dsp.exec_cmd(terminal .. " -e nvim ~/NixOsConfig"))
+-- Control Actions - Generally pulls up a panel to do stuff
+hl.bind(mainMod .. " + CONTROL + B",  hl.dsp.exec_cmd(bluetooth))
+hl.bind(mainMod .. " + CONTROL + N",  hl.dsp.exec_cmd(nixosConfig))
+hl.bind(mainMod .. " + CONTROL + A",  hl.dsp.exec_cmd(audio))
 
 
 -- Actions - Keybinds with no modifiers. They do stuff
-hl.bind(mainMod .. " + SPACE",        hl.dsp.exec_cmd("hyprlauncher"))
-hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill waybar || waybar"))
+hl.bind(mainMod .. " + SPACE",        hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + Q",            hl.dsp.window.close())
+hl.bind(mainMod .. " + B",            hl.dsp.exec_cmd(toggleTopbar))
+hl.bind("SHIFT + Print",              hl.dsp.exec_cmd(colorPicker))
+hl.bind("Print",                      hl.dsp.exec_cmd(screenshot))
 
 -- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
--- hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
--- hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -43,15 +55,13 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
 end
 
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("pkill hyprpicker || hyprpicker -a"))
-
--- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+-- -- Example special workspace (scratchpad)
+-- hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+--
+-- -- Scroll through existing workspaces with mainMod + scroll
+-- hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+-- hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })

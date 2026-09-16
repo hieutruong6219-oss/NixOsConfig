@@ -22,6 +22,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
   };
 
   environment.systemPackages = [
@@ -36,6 +37,9 @@
   };
 
   programs.zsh.enable = true;
+
+  # Steam requires system configurations
+  programs.steam.enable = true;
 
   # Optional, hint Electron apps to use Wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

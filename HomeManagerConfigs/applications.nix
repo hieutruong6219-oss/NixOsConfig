@@ -1,23 +1,28 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  home.packages = [
-    pkgs.bettercap
-    pkgs.wirelesstools
-    pkgs.caligula
-    pkgs.unixtools.netstat
-    pkgs.nmap
-    pkgs.proton-vpn-cli
-    pkgs.qbittorrent
-    pkgs.vlc
-    pkgs.fzf
-    pkgs.gimp
-    pkgs.nerd-fonts.jetbrains-mono
-    pkgs.nerd-fonts.googlesanscode
-    pkgs.clang
-    pkgs.cargo
-    pkgs.imagemagick
-    pkgs.bluetui
+  home.packages = with pkgs; [
+    bettercap
+    wirelesstools
+    caligula
+    unixtools.netstat
+    unixtools.arp
+    nmap
+    proton-vpn-cli
+    protonvpn-gui
+    qbittorrent
+    vlc
+    fzf
+    gimp
+    clang
+    cargo
+    imagemagick
+    bluetui
+    gnome-keyring
+    python3
+    aircrack-ng
+    lsof
+    dig
   ];
 
   programs.yazi = {
@@ -26,7 +31,23 @@
 
   programs.firefox.enable = true;
 
-  programs.anki.enable = true;
+  programs.anki = {
+    enable = true;
+    addons = [
+      (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
+          pname = "Multi-Line Type Answer Box";
+          version = "1.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "galeon";
+            repo = "ankiTypebox";
+            rev = "f1d4303e4c1de3de79deeceb541872a1cc7d28db";
+            # sparseCheckout = [ "src/addon" ];
+            hash = "sha256-dpPrSTJjDqaH7scQ+OZSlC6SX70dpF7qD9BxmDOXtDc=";
+          };
+          sourceRoot = "${finalAttrs.src.name}";
+        }))
+    ];
+  };
 
   programs.keepassxc = {
     enable = true;
@@ -42,6 +63,10 @@
       "ls" = "ls -lh --color=auto --group-directories-first";
       "lsa" = "ls -lha --color=auto --group-directories-first"; 
     };
+    initExtra = ''
+      # Bind Ctrl+R to incremental reverse history search
+      bindkey "^R" history-incremental-search-backward
+    '';
   };
 
   programs.lazygit = {
@@ -50,4 +75,6 @@
 
   programs.obsidian.enable = true;
   programs.yt-dlp.enable = true;
+
+  services.gnome-keyring.enable = true;
 }

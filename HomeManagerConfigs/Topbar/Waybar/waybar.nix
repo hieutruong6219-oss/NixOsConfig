@@ -19,7 +19,7 @@
         ];
         modules-left = [ "hyprland/workspaces" "hyprland/submap" ];
         modules-center = [ "hyprland/window" "custom/hello-from-waybar" ];
-        modules-right = [ "wireplumber" "battery" "cpu" "memory" "network" "clock" "mpd" "custom/mymodule#with-css-id" "temperature" ];
+        modules-right = [ "tray" "wireplumber" "battery" "cpu" "memory" "network" "clock" "mpd" "custom/mymodule#with-css-id" "temperature" ];
     
         "hyprland/workspaces" = {
           format = "{icon}";
