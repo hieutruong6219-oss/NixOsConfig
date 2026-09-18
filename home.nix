@@ -1,12 +1,15 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     # Applications that should carry over no matter the DE
     ./Applications/applications.nix
 
     # DE specific home manager stuff
-    # ./DesktopEnvironments/Hyprland/HomeManager/hyprland.nix
+    ./DesktopEnvironments/Hyprland/HomeManager/hyprland.nix
+    # ./DesktopEnvironments/Dwl/HomeManager/dwl.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

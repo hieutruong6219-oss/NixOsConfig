@@ -16,8 +16,7 @@
     home-manager,
     lazyvim,
     ...
-  }: 
-  let
+  }: let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -25,17 +24,17 @@
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
-        modules = [ ./configuration.nix ];
+        modules = [./configuration.nix];
       };
     };
-    
+
     homeConfigurations = {
       nyx0 = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ 
-      	  lazyvim.homeManagerModules.default
-      	  ./home.nix 
-      	];
+        modules = [
+          lazyvim.homeManagerModules.default
+          ./home.nix
+        ];
       };
     };
   };

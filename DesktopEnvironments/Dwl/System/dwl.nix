@@ -1,8 +1,16 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # ./Topbar/somebar.nix
+  ];
+  # services.displayManager.sddm = {
   services.displayManager.gdm = {
     enable = true;
+    # wayland.enable = true;
   };
 
   # Audio
@@ -15,13 +23,17 @@
     wireplumber.enable = true;
   };
 
-  environment.systemPackages = [
-    pkgs.kitty
-    # pkgs.brightnessctl # needed for brightness control
+  environment.systemPackages = with pkgs; [
+    foot
+    brightnessctl # needed for brightness control
+    somebar
   ];
 
   programs.dwl = {
     enable = true;
+    package = pkgs.dwl.override {
+      configH = ./config.h;
+    };
   };
 
   programs.zsh.enable = true;

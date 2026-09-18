@@ -1,6 +1,12 @@
-{ config, pkgs, lib, ... }:
-
+##############################################################
+# Managed through home manager
+##############################################################
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
     bettercap
     wirelesstools
@@ -34,17 +40,17 @@
     enable = true;
     addons = [
       (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
-          pname = "Multi-Line Type Answer Box";
-          version = "1.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "galeon";
-            repo = "ankiTypebox";
-            rev = "f1d4303e4c1de3de79deeceb541872a1cc7d28db";
-            # sparseCheckout = [ "src/addon" ];
-            hash = "sha256-dpPrSTJjDqaH7scQ+OZSlC6SX70dpF7qD9BxmDOXtDc=";
-          };
-          sourceRoot = "${finalAttrs.src.name}";
-        }))
+        pname = "Multi-Line Type Answer Box";
+        version = "1.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "galeon";
+          repo = "ankiTypebox";
+          rev = "f1d4303e4c1de3de79deeceb541872a1cc7d28db";
+          # sparseCheckout = [ "src/addon" ];
+          hash = "sha256-dpPrSTJjDqaH7scQ+OZSlC6SX70dpF7qD9BxmDOXtDc=";
+        };
+        sourceRoot = "${finalAttrs.src.name}";
+      }))
     ];
   };
 
@@ -60,12 +66,29 @@
     shellAliases = {
       ".." = "cd ..";
       "ls" = "ls -lh --color=auto --group-directories-first";
-      "lsa" = "ls -lha --color=auto --group-directories-first"; 
+      "lsa" = "ls -lha --color=auto --group-directories-first";
     };
     initContent = ''
       # Bind Ctrl+R to incremental reverse history search
       bindkey "^R" history-incremental-search-backward
     '';
+  };
+
+  programs.lazyvim = {
+    enable = true;
+
+    extras = {
+      lang.nix.enable = true;
+      lang.python = {
+        enable = true;
+        installRuntimeDependencies = true;
+      };
+    };
+
+    extraPackages = with pkgs; [
+      nixd # Nix LSP
+      alejandra # Nix formatter
+    ];
   };
 
   programs.lazygit = {

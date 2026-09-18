@@ -1,10 +1,12 @@
 ####################################################
 # Configs needed for hyprland with default settings
 ####################################################
-
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.xserver.enable = true; # xserver management over in HomeManager/Hyprland/input.lua
   services.displayManager.sddm = {
     enable = true;
@@ -31,7 +33,7 @@
     pkgs.brightnessctl # needed for brightness control
   ];
 
-  programs.hyprland = { 
+  programs.hyprland = {
     enable = true; # enable Hyprland
     withUWSM = false; # sddm with USWM managed hyprland breaks. disabling it until figuring out if USWM needed
   };

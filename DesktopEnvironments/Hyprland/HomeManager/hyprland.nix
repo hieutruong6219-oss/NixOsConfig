@@ -1,17 +1,22 @@
-
 ########################################
 # Homemanager managed Hyprland
 ########################################
-
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
-    
+
     # Import all files in Hyprland directory
-    extraLuaFiles = builtins.listToAttrs (map 
-      (n: { name = n; value = ./Hyprland + "/${n}"; })
+    extraLuaFiles = builtins.listToAttrs (
+      map
+      (n: {
+        name = n;
+        value = ./Hyprland + "/${n}";
+      })
       (builtins.attrNames (builtins.readDir ./Hyprland))
     );
   };
@@ -74,7 +79,7 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" ];
+      monospace = ["JetBrainsMono Nerd Font"];
       # sansSerif = [ "JetBrainsMono Nerd Font" ];
       # serif = [ "JetBrainsMono Nerd Font" ];
     };
@@ -94,23 +99,6 @@
 
   # App launcher
   services.hyprlauncher.enable = true;
-
-  programs.lazyvim = {
-    enable = true;
-
-    extras = {
-      lang.nix.enable = true;
-      lang.python = {
-        enable = true;
-        installRuntimeDependencies = true;
-      };
-    };
-
-    extraPackages = with pkgs; [
-      nixd       # Nix LSP
-      alejandra  # Nix formatter
-    ];
-  };
 
   programs.zsh.sessionVariables = {
     GRIM_DEFAULT_DIR = "$HOME/Documents/Pictures/Screenshots/";
