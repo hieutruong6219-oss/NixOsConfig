@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   programs.waybar = {
     enable = true;
     # systemd.enable = true;
@@ -19,9 +20,26 @@
           "eDP-1"
           "HDMI-A-1"
         ];
-        modules-left = ["hyprland/workspaces" "hyprland/submap"];
-        modules-center = ["hyprland/window" "custom/hello-from-waybar"];
-        modules-right = ["tray" "wireplumber" "battery" "cpu" "memory" "network" "clock" "mpd" "custom/mymodule#with-css-id" "temperature"];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/submap"
+        ];
+        modules-center = [
+          "hyprland/window"
+          "custom/hello-from-waybar"
+        ];
+        modules-right = [
+          "tray"
+          "wireplumber"
+          "battery"
+          "cpu"
+          "memory"
+          "network"
+          "clock"
+          "mpd"
+          "custom/mymodule#with-css-id"
+          "temperature"
+        ];
 
         "hyprland/workspaces" = {
           format = "{icon}";

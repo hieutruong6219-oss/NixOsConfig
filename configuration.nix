@@ -6,11 +6,13 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   # Extracting home-manager modules from the inputs catch all array
   inherit (inputs) lazyvim;
   inherit (inputs) home-manager;
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     ./SystemConfigs/boot.nix
@@ -34,7 +36,10 @@ in {
   users.users."nyx0" = {
     isNormalUser = true;
     description = "Me Myself I";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       # kdePackages.kate
       #  thunderbird
@@ -100,5 +105,8 @@ in {
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }

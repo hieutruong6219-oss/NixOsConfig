@@ -6,7 +6,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   services = {
     xserver.enable = true; # xserver management over in HomeManager/Hyprland/input.lua
     displayManager.sddm = {

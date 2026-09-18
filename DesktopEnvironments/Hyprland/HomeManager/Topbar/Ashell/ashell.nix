@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   programs.ashell = {
     enable = true;
     systemd.enable = false;

@@ -3,7 +3,8 @@
   pkgs,
   lazyvim,
   ...
-}: {
+}:
+{
   imports = [
     # Applications that should carry over no matter the DE
     ./Applications/applications.nix

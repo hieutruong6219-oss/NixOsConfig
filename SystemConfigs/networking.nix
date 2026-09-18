@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   networking.hostName = "nixos";
 
   # Enable nmcli

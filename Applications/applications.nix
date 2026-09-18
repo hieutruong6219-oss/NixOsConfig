@@ -7,7 +7,8 @@
   lib,
   lazyvim,
   ...
-}: {
+}:
+{
   imports = [
     lazyvim.homeManagerModules.default
   ];
@@ -92,7 +93,7 @@
 
       extraPackages = with pkgs; [
         nixd # Nix LSP
-        alejandra # Nix formatter
+        nixfmt # Nix formatter
       ];
     };
 

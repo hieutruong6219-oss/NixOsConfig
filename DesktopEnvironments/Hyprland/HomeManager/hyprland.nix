@@ -6,18 +6,17 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   wayland.windowManager.hyprland = {
     enable = true;
 
     # Import all files in Hyprland directory
     extraLuaFiles = builtins.listToAttrs (
-      map
-      (n: {
+      map (n: {
         name = n;
         value = ./Hyprland + "/${n}";
-      })
-      (builtins.attrNames (builtins.readDir ./Hyprland))
+      }) (builtins.attrNames (builtins.readDir ./Hyprland))
     );
   };
 
@@ -79,7 +78,7 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = ["JetBrainsMono Nerd Font"];
+      monospace = [ "JetBrainsMono Nerd Font" ];
       # sansSerif = [ "JetBrainsMono Nerd Font" ];
       # serif = [ "JetBrainsMono Nerd Font" ];
     };
