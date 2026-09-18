@@ -1,18 +1,15 @@
-##############################################################
-# Managed through home manager
-##############################################################
 {
-  config,
+  inputs,
   pkgs,
   lib,
-  lazyvim,
   ...
 }:
 {
-  imports = [
-    lazyvim.homeManagerModules.default
-  ];
+  # Need to seperate these out based on my hobbies.
   home.packages = with pkgs; [
+    vim
+    wget
+    git
     bettercap
     wirelesstools
     caligula
@@ -33,6 +30,9 @@
     aircrack-ng
     lsof
     dig
+  ];
+  imports = [
+    inputs.lazyvim.homeManagerModules.default
   ];
 
   programs = {
@@ -106,4 +106,28 @@
   };
 
   services.gnome-keyring.enable = true;
+
+  ##############################################################################################
+  # Home manager default setup stuff
+  nixpkgs.config.allowUnfree = true;
+
+  # Allow application launcher to find
+  xdg.enable = true;
+  xdg.mime.enable = true;
+
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home = {
+    username = "nyx0";
+    homeDirectory = "/home/nyx0";
+
+    sessionVariables = {
+      # EDITOR = "emacs";
+      EDITOR = "nvim";
+    };
+    stateVersion = "26.05";
+  };
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }

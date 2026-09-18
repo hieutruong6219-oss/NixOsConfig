@@ -5,17 +5,17 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
 
-    # Import all files in Hyprland directory
     extraLuaFiles = builtins.listToAttrs (
-      map (n: {
-        name = n;
-        value = ./Hyprland + "/${n}";
+      map (file: {
+        name = file;
+        value = ./Hyprland + "/${file}";
       }) (builtins.attrNames (builtins.readDir ./Hyprland))
     );
   };

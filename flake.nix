@@ -17,23 +17,28 @@
       ...
     }@inputs:
     let
-      inherit (nixpkgs) lib;
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      extendedLib = nixpkgs.lib.extend (
+        final: prev: {
+          customFuncs = {
+            getFiles = import ./lib/getFiles.nix;
+          };
+        }
+      );
+      mkSystem = import ./lib/mkSystem.nix {
+        inherit inputs;
+      };
     in
     {
+      lib = extendedLib;
+
       nixosConfigurations = {
-        nixos = lib.nixosSystem {
-          inherit system; # Little unsure about this line. Was when following tutorial for inital setup.
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./configuration.nix
-            inputs.home-manager.nixosModules.default
-          ];
+        laptop-nixos-hyprland = mkSystem {
+          host = "laptop";
+          desktopEnvironment = "hyprland";
         };
       };
-      formatter.${system} = pkgs.nixfmt-tree;
+
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
 }

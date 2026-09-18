@@ -1,38 +1,21 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
+  lib,
   pkgs,
   inputs,
   ...
 }:
-let
-  # Extracting home-manager modules from the inputs catch all array
-  inherit (inputs) lazyvim;
-  inherit (inputs) home-manager;
-in
 {
+  # Split these off into modules. core/ for most things
+  # files = inputs.self.lib.getFiles "core";
   imports = [
-    ./hardware-configuration.nix
-    ./SystemConfigs/boot.nix
-
-    # Networking stuff
-    ./SystemConfigs/networking.nix
-
-    # Desktop environment
-    # ./DesktopEnvironments/Plasma/System/plasma.nix
-    ./DesktopEnvironments/Hyprland/System/hyprland.nix # Remember to enable hyprland.nix in home.nix
-    # ./DesktopEnvironments/Dwl/System/dwl.nix
-
-    # Systemd stuff
-    ./SystemConfigs/systemd.nix
-
-    # Exposing home-manager function
-    home-manager.nixosModules.default
+    # inputs.self.lib.getFiles
+    # "core"
+    ./core/boot.nix
+    ./core/networking.nix
+    ./core/systemd.nix
   ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Default user
   users.users."nyx0" = {
     isNormalUser = true;
     description = "Me Myself I";
@@ -46,24 +29,6 @@ in
     ];
     shell = pkgs.zsh;
   };
-
-  home-manager = {
-    extraSpecialArgs = {
-      inherit lazyvim;
-      # inherit inputs;
-    };
-    users = {
-      "nyx0" = import ./home.nix;
-    };
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-  ];
 
   hardware.bluetooth.enable = true;
 
@@ -93,6 +58,12 @@ in
     ln -sf ${pkgs.bash}/bin/bash /bin/bash
   '';
 
+  # Enabling flakes
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -104,9 +75,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 }
