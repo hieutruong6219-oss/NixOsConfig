@@ -6,7 +6,11 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  # Extracting home-manager modules from the inputs catch all array
+  inherit (inputs) lazyvim;
+  inherit (inputs) home-manager;
+in {
   imports = [
     ./hardware-configuration.nix
     ./SystemConfigs/boot.nix
@@ -22,7 +26,8 @@
     # Systemd stuff
     ./SystemConfigs/systemd.nix
 
-    inputs.home-manager.nixosModules.default
+    # Exposing home-manager function
+    home-manager.nixosModules.default
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -38,7 +43,10 @@
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = {
+      inherit lazyvim;
+      # inherit inputs;
+    };
     users = {
       "nyx0" = import ./home.nix;
     };

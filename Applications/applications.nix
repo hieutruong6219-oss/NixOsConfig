@@ -5,8 +5,12 @@
   config,
   pkgs,
   lib,
+  lazyvim,
   ...
 }: {
+  imports = [
+    lazyvim.homeManagerModules.default
+  ];
   home.packages = with pkgs; [
     bettercap
     wirelesstools

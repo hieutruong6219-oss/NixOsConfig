@@ -13,10 +13,6 @@
   outputs = {
     self,
     nixpkgs,
-
-    # Home manager imports
-    home-manager,
-    lazyvim,
     ...
   } @ inputs: let
     inherit (nixpkgs) lib;
@@ -31,7 +27,7 @@
         };
         modules = [
           ./configuration.nix
-          home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.default
         ];
       };
     };
