@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -20,9 +21,37 @@
 
     # Systemd stuff
     ./SystemConfigs/systemd.nix
+
+    inputs.home-manager.nixosModules.default
   ];
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users."nyx0" = {
+    isNormalUser = true;
+    description = "Me Myself I";
+    extraGroups = ["networkmanager" "wheel"];
+    packages = with pkgs; [
+      # kdePackages.kate
+      #  thunderbird
+    ];
+    shell = pkgs.zsh;
+  };
+
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "nyx0" = import ./home.nix;
+    };
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    git
+  ];
+
   hardware.bluetooth.enable = true;
 
   # Set your time zone.
@@ -43,28 +72,8 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."nyx0" = {
-    isNormalUser = true;
-    description = "Me Myself I";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      # kdePackages.kate
-      #  thunderbird
-    ];
-    shell = pkgs.zsh;
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-  ];
 
   # Adding bash to bin
   system.activationScripts.binbash = ''

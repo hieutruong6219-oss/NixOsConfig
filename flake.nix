@@ -13,27 +13,25 @@
   outputs = {
     self,
     nixpkgs,
+
+    # Home manager imports
     home-manager,
     lazyvim,
     ...
-  }: let
+  } @ inputs: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
-        inherit system;
-        modules = [./configuration.nix];
-      };
-    };
-
-    homeConfigurations = {
-      nyx0 = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        inherit system; # Little unsure about this line. Was when following tutorial for inital setup. 
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
-          lazyvim.homeManagerModules.default
-          ./home.nix
+          ./configuration.nix
+          home-manager.nixosModules.default
         ];
       };
     };
