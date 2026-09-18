@@ -21,7 +21,7 @@
   in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
-        inherit system; # Little unsure about this line. Was when following tutorial for inital setup. 
+        inherit system; # Little unsure about this line. Was when following tutorial for inital setup.
         specialArgs = {
           inherit inputs;
         };

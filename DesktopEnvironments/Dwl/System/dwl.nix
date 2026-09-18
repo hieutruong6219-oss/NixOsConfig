@@ -29,17 +29,19 @@
     somebar
   ];
 
-  programs.dwl = {
-    enable = true;
-    package = pkgs.dwl.override {
-      configH = ./config.h;
+  programs = {
+    dwl = {
+      enable = true;
+      package = pkgs.dwl.override {
+        configH = ./config.h;
+      };
     };
+
+    zsh.enable = true;
+
+    # Steam requires system configurations
+    steam.enable = true;
   };
-
-  programs.zsh.enable = true;
-
-  # Steam requires system configurations
-  programs.steam.enable = true;
 
   # Hint Electron apps to use Wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

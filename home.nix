@@ -21,12 +21,14 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "nyx0";
-  home.homeDirectory = "/home/nyx0";
+  home = {
+    username = "nyx0";
+    homeDirectory = "/home/nyx0";
 
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-    EDITOR = "nvim";
+    sessionVariables = {
+      # EDITOR = "emacs";
+      EDITOR = "nvim";
+    };
   };
 
   # Let Home Manager install and manage itself.
