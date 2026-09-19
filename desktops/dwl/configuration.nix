@@ -25,7 +25,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    foot
+    # foot
+    kitty
     brightnessctl # needed for brightness control
     somebar
   ];

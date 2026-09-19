@@ -37,6 +37,11 @@
           host = "laptop";
           desktopEnvironment = "hyprland";
         };
+
+        laptop-nixos-dwl = mkSystem {
+          host = "laptop";
+          desktopEnvironment = "dwl";
+        };
       };
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;

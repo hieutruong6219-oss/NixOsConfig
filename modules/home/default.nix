@@ -30,6 +30,7 @@
     aircrack-ng
     lsof
     dig
+    jq
   ];
   imports = [
     inputs.lazyvim.homeManagerModules.default

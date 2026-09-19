@@ -8,7 +8,7 @@ local fileManager     = terminal .. " -e yazi"
 local passwordManager = "keepassxc"
 
 local bluetooth       = terminal .. " -e bluetui"
-local nixosConfig     = terminal .. " -e nvim ~/NixOsConfig"
+local nixosConfig     = terminal .. " -e ~/NixOsConfig/rebuild.sh"
 local audio           = "pavucontrol"
 
 local menu            = "hyprlauncher"
