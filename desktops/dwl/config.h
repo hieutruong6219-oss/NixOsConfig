@@ -53,7 +53,7 @@ static const struct xkb_rule_names xkb_rules = {
 	/* example:
 	.options = "ctrl:nocaps",
 	*/
-	.options = NULL,
+	.options = "caps:escape_shifted_capslock",
 };
 
 static const int repeat_rate = 25;
@@ -114,42 +114,67 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define CMD(cmd) { .v = (const char*[]){ cmd, NULL } }
 
 /* commands */
-// static const char *termcmd[] = { "foot", NULL };
-static const char *termcmd[] = { "kitty", NULL };
+#define TERMINAL "foot"
+// #define TERMINAL "kitty"
 static const char *menucmd[] = { "wmenu-run", NULL };
-static const char *browser[] = { "firefox", NULL};
+#define BROWSER "firefox"
+#define PASSWORDMANAGER "keepassxc"
+
+// static const char *bluetooth = "bluetui";
+// static const char *bluetooth[] = { TERMINAL, "-e", "bluetui", NULL };
+#define BLUETOOTH "bluetui"
+#define NIXOSCONFIG "~/NixOsConfig/rebuild.sh"
+#define AUDIO "pavucontrol"
+
+// static const char *screenshot = "./scripts/screenshot.sh";
+#define SCREENSHOT "~/NixOsConfig/desktops/dwl/scripts/screenshot.sh"
+
+#define VOL_UP "wpctl", "set-volume", "-l", "1", "@DEFAULT_AUDIO_SINK@", "5%+"
+#define VOL_DOWN "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-"
+#define VOL_MUTE "wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"
+#define BRIGHTNESS_UP "brightnessctl", "-e4", "-n2", "set", "5%+"
+#define BRIGHTNESS_DOWN "brightnessctl", "-e4", "-n2", "set", "5%-"
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: 2 -> at, etc. */
 	/* modifier                  key                  function          argument */
 	{ MODKEY,                    XKB_KEY_p,           spawn,            {.v = menucmd} },
-	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,      spawn,            {.v = termcmd} },
-	{ MODKEY,                    XKB_KEY_Return,      spawn,            {.v = termcmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B,           spawn,            {.v = browser} },
-	{ MODKEY,                    XKB_KEY_j,           focusstack,       {.i = +1} },
-	{ MODKEY,                    XKB_KEY_k,           focusstack,       {.i = -1} },
-	{ MODKEY,                    XKB_KEY_i,           incnmaster,       {.i = +1} },
-	{ MODKEY,                    XKB_KEY_d,           incnmaster,       {.i = -1} },
-	{ MODKEY,                    XKB_KEY_h,           setmfact,         {.f = -0.05f} },
-	{ MODKEY,                    XKB_KEY_l,           setmfact,         {.f = +0.05f} },
+	{ MODKEY,                    XKB_KEY_Return,      spawn,            CMD(TERMINAL) },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B,           spawn,            CMD(BROWSER) },
+  { MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_B,           spawn,            SHCMD(BLUETOOTH) },
+  { MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_N,           spawn,            CMD(NIXOSCONFIG) },
+  { MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_A,           spawn,            CMD(AUDIO) },
+  { 0,                         XKB_KEY_Print,       spawn,            SHCMD(SCREENSHOT) },
+	// { MODKEY,                    XKB_KEY_j,           focusstack,       {.i = +1} },
+	// { MODKEY,                    XKB_KEY_k,           focusstack,       {.i = -1} },
+	// { MODKEY,                    XKB_KEY_i,           incnmaster,       {.i = +1} },
+	// { MODKEY,                    XKB_KEY_d,           incnmaster,       {.i = -1} },
+	// { MODKEY,                    XKB_KEY_h,           setmfact,         {.f = -0.05f} },
+	// { MODKEY,                    XKB_KEY_l,           setmfact,         {.f = +0.05f} },
 	// { MODKEY,                    XKB_KEY_Return,      zoom,             {0} },
-	{ MODKEY,                    XKB_KEY_Tab,         view,             {0} },
+	// { MODKEY,                    XKB_KEY_Tab,         view,             {0} },
 	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_c,           killclient,       {0} },
 	{ MODKEY,                    XKB_KEY_q,           killclient,       {0} },
-	{ MODKEY,                    XKB_KEY_t,           setlayout,        {.v = &layouts[0]} },
-	{ MODKEY,                    XKB_KEY_f,           setlayout,        {.v = &layouts[1]} },
-	{ MODKEY,                    XKB_KEY_m,           setlayout,        {.v = &layouts[2]} },
-	{ MODKEY,                    XKB_KEY_space,       setlayout,        {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,       togglefloating,   {0} },
-	{ MODKEY,                    XKB_KEY_e,           togglefullscreen, {0} },
-	{ MODKEY,                    XKB_KEY_0,           view,             {.ui = ~0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright,  tag,              {.ui = ~0} },
-	{ MODKEY,                    XKB_KEY_comma,       focusmon,         {.i = WLR_DIRECTION_LEFT} },
-	{ MODKEY,                    XKB_KEY_period,      focusmon,         {.i = WLR_DIRECTION_RIGHT} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,        tagmon,           {.i = WLR_DIRECTION_LEFT} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,     tagmon,           {.i = WLR_DIRECTION_RIGHT} },
+	// { MODKEY,                    XKB_KEY_t,           setlayout,        {.v = &layouts[0]} },
+	// { MODKEY,                    XKB_KEY_f,           setlayout,        {.v = &layouts[1]} },
+	// { MODKEY,                    XKB_KEY_m,           setlayout,        {.v = &layouts[2]} },
+	// { MODKEY,                    XKB_KEY_space,       setlayout,        {0} },
+	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,       togglefloating,   {0} },
+	// { MODKEY,                    XKB_KEY_e,           togglefullscreen, {0} },
+	// { MODKEY,                    XKB_KEY_0,           view,             {.ui = ~0} },
+	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright,  tag,              {.ui = ~0} },
+	// { MODKEY,                    XKB_KEY_comma,       focusmon,         {.i = WLR_DIRECTION_LEFT} },
+	// { MODKEY,                    XKB_KEY_period,      focusmon,         {.i = WLR_DIRECTION_RIGHT} },
+	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,        tagmon,           {.i = WLR_DIRECTION_LEFT} },
+	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,     tagmon,           {.i = WLR_DIRECTION_RIGHT} },
+	{ 0,                         XKB_KEY_XF86AudioRaiseVolume,  spawn,  CMD(VOL_UP) },
+	{ 0,                         XKB_KEY_XF86AudioLowerVolume,  spawn,  CMD(VOL_DOWN) },
+	{ 0,                         XKB_KEY_XF86AudioMute,         spawn,  CMD(VOL_MUTE) },
+	{ 0,                         XKB_KEY_XF86MonBrightnessUp,   spawn,  CMD(BRIGHTNESS_UP) },
+	{ 0,                         XKB_KEY_XF86MonBrightnessDown, spawn,  CMD(BRIGHTNESS_DOWN) },
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                        0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                            1),
 	TAGKEYS(          XKB_KEY_3, XKB_KEY_numbersign,                    2),

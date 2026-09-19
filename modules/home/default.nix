@@ -31,6 +31,8 @@
     lsof
     dig
     jq
+
+    statix
   ];
   imports = [
     inputs.lazyvim.homeManagerModules.default
@@ -85,17 +87,43 @@
       enable = true;
 
       extras = {
-        lang.nix.enable = true;
-        lang.python = {
-          enable = true;
-          installRuntimeDependencies = true;
+        lang = {
+          nix.enable = true;
+          python = {
+            enable = true;
+            installRuntimeDependencies = true;
+          };
+          clangd.enable = true;
         };
       };
 
       extraPackages = with pkgs; [
         nixd # Nix LSP
         nixfmt # Nix formatter
+        clang # C compiler
       ];
+
+      plugins = {
+        snacks = ''
+          return {
+            {
+              "folke/snacks.nvim",
+              opts = {
+                picker = {
+                  -- Global setting for all pickers
+                  ignored = true, 
+                  sources = {
+                    files = {
+                      -- Ensures the specific "files" picker overrides default filters
+                      ignored = true, 
+                    },
+                  },
+                },
+              },
+            },
+          }
+        '';
+      };
     };
 
     lazygit = {

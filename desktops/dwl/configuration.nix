@@ -25,10 +25,17 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # foot
+    foot
     kitty
     brightnessctl # needed for brightness control
     somebar
+    pavucontrol
+
+    # Screenshots
+    grim
+    slurp
+    swappy
+    wl-clipboard
   ];
 
   programs = {

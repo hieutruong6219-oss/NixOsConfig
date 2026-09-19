@@ -12,7 +12,7 @@ nvim ~/NixOsConfig
 # fi
 
 # Shows changes
-git diff -U0 '*.nix'
+git diff -U0
 
 echo "NixOS Rebuilding..."
 
