@@ -25,8 +25,11 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # Terminal + apperance
     foot
     kitty
+    nerd-fonts.dejavu-sans-mono
+
     brightnessctl # needed for brightness control
     somebar
     pavucontrol
@@ -37,6 +40,8 @@
     swappy
     wl-clipboard
   ];
+
+  console.font = "DejavuSansMono Nerd Font";
 
   programs = {
     dwl = {
